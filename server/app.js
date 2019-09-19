@@ -2,12 +2,17 @@ const express = require("express");
 const mysql = require("mysql");
 const app = express();
 const port = 3000;
-const token = '1234555';
+const token = "12345";
+const resTextSuccess = 'Login success !';
+const resTextFailed = 'Login Failed !';
 
 app.use(express.json());
 app.use(function(req, res, next) {
   res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
-  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  res.header(
+    "Access-Control-Allow-Headers",
+    "Origin, X-Requested-With, Content-Type, Accept"
+  );
   next();
 });
 
@@ -38,16 +43,18 @@ app.post("/employee/token", (req, res) => {
 app.post("/employee/login", (req, res) => {
   let sql = `SELECT user,password FROM loginDB.tableDB WHERE user='${req.body.user}';`;
   db.query(sql, (err, results) => {
-    console.log('user:',req.body.user);
+    console.log("user:", req.body.user);
     if (err) throw err;
     if (results.length > 0) {
       const userFormDB = results[0];
-      console.log('pass:',userFormDB.password);
+      console.log("pass:", userFormDB.password);
       if (userFormDB.password === req.body.password) {
-        res.json({ token });
+        res.json({ token,resTextSuccess });
+      } else {
+        res.json({resTextFailed});
       }
     } else {
-      res.send("Login failed...");
+      res.json({resTextFailed});
     }
   });
 });

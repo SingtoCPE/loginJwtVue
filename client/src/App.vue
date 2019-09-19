@@ -10,8 +10,7 @@ import { store } from "./store/store";
 export default {
   name: "app",
   store,
-  components: {
-  }
+  components: {},
 };
 </script>
 
