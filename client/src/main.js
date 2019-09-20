@@ -7,7 +7,7 @@ Vue.config.productionTip = false;
 
 router.beforeEach((to, from, next) => {
   if (to.matched.some(record => record.meta.requiresAuth)) {
-    if (!auth.getAuth()) {
+    if (!auth.getToken()) {
       next({
         path: '/',
         query: { redirect: to.fullPath }

@@ -1,46 +1,55 @@
 <template>
-  <form id="employee-add">
-    <button @click="backtoMainPage">Main</button>
-    <p v-if="errors.length">
-      <b>Please correct the following error(s):</b>
-    </p>
-    <ul>
-      <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
-    </ul>
-
-    <div class="pb-5 margin-test">
-      <label for="name">Name:</label>
-      <input id="name" v-model="employee.firstName" type="text" placeholder="Your name..." />
+  <form class="employee-add">
+    <div class="main">
+      <button class="button-main" @click="backtoMainPage">Main</button>
     </div>
+    <fieldset>
+      <legend>
+        <h1>Form Employee Add</h1>
+      </legend>
+      <div class="add-wrapper">
+        <p v-if="errors.length">
+          <b>Please correct the following error(s):</b>
+        </p>
+        <ul>
+          <li v-for="(error,index) in errors" :key="index">{{ error }}</li>
+        </ul>
 
-    <div class="pb-5 margin-test">
-      <label for="age">Age:</label>
-      <input id="age" v-model="employee.age" type="number" placeholder="Age..." />
-    </div>
+        <div class="pb-5 margin-test">
+          <label for="name">Name:</label>
+          <input id="name" v-model="employee.firstName" type="text" placeholder="Your name..." />
+        </div>
 
-    <div class="pb-5 margin-test">
-      <label>Position:</label>
-      <select id="position" :value="employee.position" v-on:change="inputAddPosition">
-        <option value="Developer">Developer</option>
-        <option value="Employee Management">Employee Management</option>
-        <option value="Maid">Maid</option>
-        <option value="Receptionist">Receptionist</option>
-        <option value="System Analysis">System Analysis</option>
-        <option value="System Engineering">System Engineering</option>
-      </select>
-    </div>
+        <div class="pb-5 margin-test">
+          <label for="age">Age:</label>
+          <input id="age" v-model="employee.age" type="number" placeholder="Age..." />
+        </div>
 
-    <div class="pb-5 margin-test">
-      <label for="salary">Salary:</label>
-      <input id="salary" v-model="employee.salary" type="number" placeholder="Salary..." />
-    </div>
+        <div class="pb-5 margin-test">
+          <label>Position:</label>
+          <select id="position" :value="employee.position" v-on:change="inputAddPosition">
+            <option value="Developer">Developer</option>
+            <option value="Employee Management">Employee Management</option>
+            <option value="Maid">Maid</option>
+            <option value="Receptionist">Receptionist</option>
+            <option value="System Analysis">System Analysis</option>
+            <option value="System Engineering">System Engineering</option>
+          </select>
+        </div>
 
-    <div class="pb-5 margin-test">
-      <label for="phone">Phone:</label>
-      <input id="phone" v-model="employee.phone" type="text" placeholder="Phone..." />
-    </div>
+        <div class="pb-5 margin-test">
+          <label for="salary">Salary:</label>
+          <input id="salary" v-model="employee.salary" type="number" placeholder="Salary..." />
+        </div>
 
-    <button type="submit" id="buttonAdd" @click.prevent="validateForm">ADD</button>
+        <div class="pb-5 margin-test">
+          <label for="phone">Phone:</label>
+          <input id="phone" v-model="employee.phone" type="text" placeholder="Phone..." />
+        </div>
+
+        <button type="submit" id="buttonAdd" @click.prevent="validateForm">ADD</button>
+      </div>
+    </fieldset>
   </form>
 </template>
 <script>
@@ -133,6 +142,10 @@ export default {
 };
 </script>
 <style>
+.employee-add {
+  margin: 25px 500px 500px 500px;
+  align-items: center;
+}
 .margin-test {
   margin: 10px;
 }
@@ -147,16 +160,23 @@ export default {
   font-size: 15px;
   margin-left: 10px;
 }
+fieldset {
+  color: rgb(94, 94, 94);
+}
+.add-wrapper {
+  margin: 20px 100px 100px 100px;
+  text-align: left;
+}
+.button-main {
+  background-color: rgb(228, 7, 73);
+  margin: 10 10 10 700;
+  color: black;
+  padding: 2px 10px;
+  text-align: center;
+  font-size: 15px;
+}
+.main{
+  text-align: right;
+}
 </style>
-© 2019 GitHub, Inc.
-Terms
-Privacy
-Security
-Status
-Help
-Contact GitHub
-Pricing
-API
-Training
-Blog
-About
+

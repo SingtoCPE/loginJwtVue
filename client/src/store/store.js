@@ -2,6 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import VueLocalStorage from "vue-localstorage";
+import auth from '@/utils/auth';
 
 Vue.use(Vuex);
 Vue.use(VueLocalStorage);
@@ -30,7 +31,7 @@ export const store = new Vuex.Store({
           password
         }
       });
-      Vue.localStorage.set("AuthToken", data.token);
+      auth.setToken(data.token);
       if (data.token) {
         window.location.href = "http://localhost:8080/#/mainpage";
         alert(data.resTextSuccess);
@@ -78,8 +79,3 @@ export const store = new Vuex.Store({
   }
 });
 
-export default ({
-  setAuth(){
-    return Vue.localStorage.set("AuthToken", data.token);
-  }
-})
