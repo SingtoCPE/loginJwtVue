@@ -127,7 +127,7 @@ export default {
       this.employee.phone = "";
     },
     backtoMainPage() {
-      window.location.href = "http://localhost:8080/#/logined";
+      window.location.href = "http://localhost:8080/#/mainpage";
     }
   }
 };

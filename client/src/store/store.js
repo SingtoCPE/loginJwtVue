@@ -8,7 +8,7 @@ Vue.use(VueLocalStorage);
 
 const endpointLogin = "http://localhost:3000/employee/login";
 const endpointGet = "http://localhost:3001/employee";
-const endpointDel = "http://localhost:3000/employee/del";
+const endpointDel = "http://localhost:3001/employee/del";
 const endpointAdd = "http://localhost:3001/employee/add";
 
 export const store = new Vuex.Store({
@@ -32,7 +32,7 @@ export const store = new Vuex.Store({
       });
       Vue.localStorage.set("AuthToken", data.token);
       if (data.token) {
-        window.location.href = "http://localhost:8080/#/logined";
+        window.location.href = "http://localhost:8080/#/mainpage";
         alert(data.resTextSuccess);
       } else {
         alert(data.resTextFailed);
@@ -45,7 +45,7 @@ export const store = new Vuex.Store({
       });
       commit("setData", data.map(data => data));
     },
-    async delEmployee({ dispatch }, id) {
+    async delEmployee({dispatch},id) {
       await axios({
         method: "post",
         url: endpointDel,
@@ -53,7 +53,7 @@ export const store = new Vuex.Store({
           id
         }
       });
-      dispatch("getEmployee", id);
+      dispatch('getEmployee');
     },
     async addEmployee(
       { commit },
@@ -72,7 +72,6 @@ export const store = new Vuex.Store({
       });
     },
     clearToken() {
-      console.log("clear-store");
       window.location.href = "http://localhost:8080/#/";
       Vue.localStorage.remove("AuthToken");
     }

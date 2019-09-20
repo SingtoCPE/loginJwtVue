@@ -14,7 +14,7 @@ export default {
   },
   methods: {
     delEmployee(id) {
-      this.$store.dispatch("delEmployee", id);
+      this.$store.dispatch("delEmployee",id);
     }
   }
 };

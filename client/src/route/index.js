@@ -9,7 +9,7 @@ Vue.use(Router);
 export default new Router({
   routes: [
     { path: "/", name: "login", component: loginEmployee },
-    { path: "/logined", name: "logined", component: mainPage },
+    { path: "/mainpage", name: "logined", component: mainPage, meta: { requiresAuth: true }},
     { path: "/add", name: "add", component: addEmployee }
   ]
 });

@@ -1,12 +1,5 @@
-import Vue from 'vue';
-import VueLocalStorage from "vue-localstorage";
-
-Vue.use();
-Vue.use(VueLocalStorage);
-
-export const auth = new auth({
-  getAuth(){
-    return Vue.localStorage.get('AuthToken');
+export default {
+  getAuth() {
+    return localStorage.getItem("AuthToken");
   }
-}) 
-
+};
