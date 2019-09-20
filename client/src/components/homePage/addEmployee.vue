@@ -16,17 +16,17 @@
         </ul>
 
         <div class="pb-5 margin-test">
-          <label for="name">Name:</label>
+          <label for="name">Name: </label>
           <input id="name" v-model="employee.firstName" type="text" placeholder="Your name..." />
         </div>
 
         <div class="pb-5 margin-test">
-          <label for="age">Age:</label>
+          <label for="age">Age: </label>
           <input id="age" v-model="employee.age" type="number" placeholder="Age..." />
         </div>
 
         <div class="pb-5 margin-test">
-          <label>Position:</label>
+          <label>Position: </label>
           <select id="position" :value="employee.position" v-on:change="inputAddPosition">
             <option value="Developer">Developer</option>
             <option value="Employee Management">Employee Management</option>
@@ -38,12 +38,12 @@
         </div>
 
         <div class="pb-5 margin-test">
-          <label for="salary">Salary:</label>
+          <label for="salary">Salary: </label>
           <input id="salary" v-model="employee.salary" type="number" placeholder="Salary..." />
         </div>
 
         <div class="pb-5 margin-test">
-          <label for="phone">Phone:</label>
+          <label for="phone">Phone: </label>
           <input id="phone" v-model="employee.phone" type="text" placeholder="Phone..." />
         </div>
 
@@ -143,7 +143,7 @@ export default {
 </script>
 <style>
 .employee-add {
-  margin: 25px 500px 500px 500px;
+  margin: 10px 500px 500px 500px;
   align-items: center;
 }
 .margin-test {
@@ -164,7 +164,7 @@ fieldset {
   color: rgb(94, 94, 94);
 }
 .add-wrapper {
-  margin: 20px 100px 100px 100px;
+  margin: 20px 100px 80px 100px;
   text-align: left;
 }
 .button-main {
