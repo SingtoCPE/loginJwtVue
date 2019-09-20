@@ -1,10 +1,12 @@
 const express = require("express");
 const mysql = require("mysql");
+const jwt = require("jsonwebtoken");
+const fs = require("fs");
 const app = express();
 const port = 3000;
-const token = "12345";
-const resTextSuccess = 'Login success !';
-const resTextFailed = 'Login Failed !';
+// const token = "12345";
+const resTextSuccess = "Login success !";
+const resTextFailed = "Login Failed !";
 
 app.use(express.json());
 app.use(function(req, res, next) {
@@ -42,6 +44,10 @@ app.post("/employee/token", (req, res) => {
 //----------------------------------------------------------
 app.post("/employee/login", (req, res) => {
   let sql = `SELECT user,password FROM loginDB.tableDB WHERE user='${req.body.user}';`;
+  let privateKey = fs.readFileSync("./private.pem", "utf8");
+  let token = jwt.sign({ body: req.body.user }, privateKey, {
+    algorithm: "HS256"
+  });
   db.query(sql, (err, results) => {
     console.log("user:", req.body.user);
     if (err) throw err;
@@ -49,12 +55,12 @@ app.post("/employee/login", (req, res) => {
       const userFormDB = results[0];
       console.log("pass:", userFormDB.password);
       if (userFormDB.password === req.body.password) {
-        res.json({ token,resTextSuccess });
+        res.json({ token, resTextSuccess });
       } else {
-        res.json({resTextFailed});
+        res.json({ resTextFailed });
       }
     } else {
-      res.json({resTextFailed});
+      res.json({ resTextFailed });
     }
   });
 });

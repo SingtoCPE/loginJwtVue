@@ -77,3 +77,9 @@ export const store = new Vuex.Store({
     }
   }
 });
+
+export default ({
+  setAuth(){
+    return Vue.localStorage.set("AuthToken", data.token);
+  }
+})
