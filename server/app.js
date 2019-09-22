@@ -4,20 +4,21 @@ const jwt = require("jsonwebtoken");
 const fs = require("fs");
 const app = express();
 const port = 3000;
-// const token = "12345";
 const resTextSuccess = "Login success !";
-const resTextFailed = "Login Failed !";
+const resTextPassFailed = `Login failed , " Password is wrong ! "`;
+const resTextUserFailed = `Login failed , " User is wrong ! "`;
+
 
 app.use(express.json());
 app.use(function(req, res, next) {
-  res.header("Access-Control-Allow-Origin", "*"); // update to match the domain you will make the request from
+  res.header("Access-Control-Allow-Origin", "*"); 
   res.header(
     "Access-Control-Allow-Headers",
     "Origin, X-Requested-With, Content-Type, Accept"
   );
   next();
 });
-
+//------------------------------------------------------------
 const db = mysql.createConnection({
   host: "localhost",
   user: "root",
@@ -31,19 +32,9 @@ app.get("/employee", (req, res) => {
     res.json(results);
   });
 });
-//----------------------------------------------------------
-app.post("/employee/token", (req, res) => {
-  const tokenInput = req.header("authorization");
-  console.log(tokenInput);
-  if (token === tokenInput) {
-    res.send("Login success...");
-  } else {
-    res.send("Login failed...");
-  }
-});
-//----------------------------------------------------------
+//------------------------------------------------------------
 app.post("/employee/login", (req, res) => {
-  let sql = `SELECT user,password FROM loginDB.tableDB WHERE user='${req.body.user}';`;
+  let sql = `SELECT user,password,name FROM loginDB.tableDB WHERE user='${req.body.user}';`;
   let privateKey = fs.readFileSync("./private.pem", "utf8");
   let token = jwt.sign({ body: req.body.user }, privateKey, {
     algorithm: "HS256"
@@ -55,16 +46,16 @@ app.post("/employee/login", (req, res) => {
       const userFormDB = results[0];
       console.log("pass:", userFormDB.password);
       if (userFormDB.password === req.body.password) {
-        res.json({ token, resTextSuccess });
+        res.json({userFormDB, token, resTextSuccess });
       } else {
-        res.json({ resTextFailed });
+        res.json({ resTextPassFailed });
       }
     } else {
-      res.json({ resTextFailed });
+      res.json({ resTextUserFailed });
     }
   });
 });
-// ---------------------------------------------------------
+//------------------------------------------------------------
 app.post("/employee/del", (req, res) => {
   console.log({ id: req.body.id });
   let sql = `DELETE FROM loginDB.tableDB WHERE id=${req.body.id};`;
@@ -74,7 +65,7 @@ app.post("/employee/del", (req, res) => {
     res.json(results);
   });
 });
-// ---------------------------------------------------------
+//------------------------------------------------------------
 app.post("/employee/add", (req, res) => {
   let sql = `INSERT INTO loginDB.tableDB (user, password, name) VALUES ('${req.body.user}', 
   '${req.body.password}', '${req.body.name}');`;

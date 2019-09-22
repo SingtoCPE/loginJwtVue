@@ -2,7 +2,7 @@ import Vue from "vue";
 import Vuex from "vuex";
 import axios from "axios";
 import VueLocalStorage from "vue-localstorage";
-import auth from '@/utils/auth';
+import auth from "@/utils/auth";
 
 Vue.use(Vuex);
 Vue.use(VueLocalStorage);
@@ -34,9 +34,11 @@ export const store = new Vuex.Store({
       auth.setToken(data.token);
       if (data.token) {
         window.location.href = "http://localhost:8080/#/mainpage";
-        alert(data.resTextSuccess);
+        alert(data.resTextSuccess+' Welcome ' +data.userFormDB.name);
+      } else if (data.resTextPassFailed) {
+        alert(data.resTextPassFailed);
       } else {
-        alert(data.resTextFailed);
+        alert(data.resTextUserFailed);
       }
     },
     async getEmployee({ commit }) {
@@ -46,7 +48,7 @@ export const store = new Vuex.Store({
       });
       commit("setData", data.map(data => data));
     },
-    async delEmployee({dispatch},id) {
+    async delEmployee({ dispatch }, id) {
       await axios({
         method: "post",
         url: endpointDel,
@@ -54,7 +56,7 @@ export const store = new Vuex.Store({
           id
         }
       });
-      dispatch('getEmployee');
+      dispatch("getEmployee");
     },
     async addEmployee(
       { commit },
@@ -78,4 +80,3 @@ export const store = new Vuex.Store({
     }
   }
 });
-
